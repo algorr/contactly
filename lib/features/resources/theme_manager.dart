@@ -59,30 +59,31 @@ ThemeData getAppTheme() {
 
     // TextTheme
     textTheme: TextTheme(
-      displayLarge: getBoldTextStyle(
-        color: ColorManager.black,
-        fontSize: FontSize.s24,
-      ),
-      titleMedium: getMediumTextStyle(
-        color: ColorManager.black,
-        fontSize: FontSize.s16,
-      ),
-      bodySmall: getRegularTextStyle(
-        color: ColorManager.blue,
-        fontSize: FontSize.s16,
-      ),
-      bodyLarge: getLargeTextStyle(
-        color: ColorManager.black,
-      ),
-      labelLarge:
-          getLargeTextStyle(color: ColorManager.black, fontSize: FontSize.s40),
-      labelMedium: getLargeTextStyle(
-          color: ColorManager.primary, fontSize: FontSize.s22),
-      titleLarge:
-          getLargeTextStyle(color: ColorManager.white, fontSize: FontSize.s16),
-      headlineMedium: getLargeTextStyle(
-          color: ColorManager.primary, fontSize: FontSize.s18),
-    ),
+        displayLarge: getBoldTextStyle(
+          color: ColorManager.black,
+          fontSize: FontSize.s24,
+        ),
+        titleMedium: getMediumTextStyle(
+          color: ColorManager.black,
+          fontSize: FontSize.s16,
+        ),
+        bodySmall: getRegularTextStyle(
+          color: ColorManager.blue,
+          fontSize: FontSize.s16,
+        ),
+        bodyLarge: getLargeTextStyle(
+          color: ColorManager.black,
+        ),
+        labelLarge: getLargeTextStyle(
+            color: ColorManager.black, fontSize: FontSize.s40),
+        labelMedium: getRegularTextStyle(
+            color: ColorManager.blue, fontSize: FontSize.s16),
+        titleLarge: getLargeTextStyle(
+            color: ColorManager.white, fontSize: FontSize.s16),
+        headlineMedium: getLightTextStyle(
+            color: ColorManager.black, fontSize: FontSize.s16),
+        headlineSmall: getRegularTextStyle(
+            color: ColorManager.grey, fontSize: FontSize.s16)),
 
     //Input Decoration Theme
     inputDecorationTheme: InputDecorationTheme(

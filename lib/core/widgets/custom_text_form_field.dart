@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-
 import '../../features/resources/index.dart';
 
+/// The CustomTextFormField class is a custom text form field widget in Dart that allows for
+/// customization of prefix icon, hint text, label text, prefix icon color, and onChanged callback.
 class CustomTextFormField extends StatelessWidget {
   const CustomTextFormField({
     super.key,
@@ -30,7 +31,7 @@ class CustomTextFormField extends StatelessWidget {
           color: ColorManager.grey,
         ),
         hintText: AppStrings.searchBarHintText,
-        hintStyle: Theme.of(context).textTheme.titleMedium,
+        hintStyle: Theme.of(context).textTheme.headlineSmall,
         focusedBorder: const OutlineInputBorder(borderSide: BorderSide.none),
       ),
       onChanged: onChanged,

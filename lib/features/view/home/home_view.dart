@@ -1,38 +1,27 @@
-import 'package:contactly/core/widgets/custom_sized_box.dart';
-import 'package:contactly/core/widgets/custom_text.dart';
-import 'package:contactly/core/widgets/custom_text_button.dart';
+import 'package:contactly/core/widgets/base_app_bar.dart';
 import 'package:contactly/core/widgets/custom_text_form_field.dart';
 import 'package:contactly/features/resources/index.dart';
+import 'package:contactly/features/view/home/widgets/home_no_contact_column.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'mixin/add_new_contact_mixin.dart';
 
-class HomeView extends StatelessWidget {
-  const HomeView({super.key});
+class HomeView extends StatelessWidget with AddNewContactMixin {
+  HomeView({super.key});
+
+  final ImagePicker _picker = ImagePicker();
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: ColorManager.primary,
-      appBar: AppBar(
-        leadingWidth: size.width * .3,
 
-        /// Contacts Logo Image
-        leading: Padding(
-          padding: const EdgeInsets.only(left: AppPadding.p10),
-          child: Image.asset(
-            AssetsManager.imgContacts,
-          ),
-        ),
-        actions: [
-          /// Add New Contact Button
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.add_circle_outlined,
-              color: ColorManager.blue,
-            ),
-          ),
-        ],
+      /// The `appBar: BaseAppBar(size: size, onPressed: () {}),` in the `Scaffold` of the `HomeView`
+      /// widget is setting the app bar for the screen.
+      appBar: BaseAppBar(
+        size: size,
+        onPressed: () {},
       ),
       body: SafeArea(
         child: Column(
@@ -48,7 +37,8 @@ class HomeView extends StatelessWidget {
                   shadowColor: ColorManager.grey,
                   color: ColorManager.white,
 
-                  /// Search Bar
+                  /// This part of the code is creating a `CustomTextFormField` widget with a hint text
+                  /// and a prefix icon.
                   child: CustomTextFormField(
                     hintText: AppStrings.searchBarHintText,
                     prefixIcon: Icon(
@@ -62,44 +52,12 @@ class HomeView extends StatelessWidget {
             SizedBox(
               height: size.height * .3,
             ),
-            Column(
-              children: [
-                /// No Contacts Image
-                Image.asset(AssetsManager.noContactImage),
 
-                /// No Contacts Text
-                CustomText(
-                  text: AppStrings.noContacts,
-                  color: ColorManager.black,
-                  fontSize: FontSize.s25,
-                  fontWeight: FontWeight.bold,
-                  style: Theme.of(context).textTheme.bodyLarge!,
-                ),
-                CustomSizedBox(
-                  size: size,
-                  heightParam: .01,
-                ),
-
-                /// No Contacts Text Appear Information
-                CustomText(
-                    text: AppStrings.contactAppearHere,
-                    color: ColorManager.black,
-                    fontSize: FontSize.s16,
-                    style: Theme.of(context).textTheme.titleMedium!),
-                CustomSizedBox(
-                  size: size,
-                  heightParam: .01,
-                ),
-
-                /// Create New Contact Text Button
-                CustomTextButton(
-                  onPressed: () {},
-                  text: AppStrings.createContactButtonText,
-                  color: ColorManager.blue,
-                  fontSize: FontSize.s14,
-                  fontWeight: FontWeight.normal,
-                ),
-              ],
+            /// The `HomeNoContactColumn` widget is being used in the `HomeView` to display a column of
+            /// UI elements related to the scenario where there are no contacts available.
+            HomeNoContactColumn(
+              size: size,
+              picker: _picker,
             ),
           ],
         ),

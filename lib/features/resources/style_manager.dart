@@ -19,7 +19,7 @@ TextStyle getRegularTextStyle(
 
 // light style
 TextStyle getLightTextStyle(
-    {double fontSize = FontSize.s12, required Color color}) {
+    {double fontSize = FontSize.s16, required Color color}) {
   return _getTextStyle(
       fontSize, FontConsts.fontFamily, FontWeightManager.light, color);
 }

@@ -5,16 +5,12 @@ class CustomTextButton extends StatelessWidget {
     super.key,
     required this.onPressed,
     required this.text,
-    required this.color,
-    required this.fontSize,
-    required this.fontWeight,
+    required this.style,
   });
 
   final VoidCallback onPressed;
   final String text;
-  final Color color;
-  final double fontSize;
-  final FontWeight fontWeight;
+  final TextStyle style;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +18,7 @@ class CustomTextButton extends StatelessWidget {
       onPressed: onPressed,
       child: Text(
         text,
-        style: Theme.of(context).textTheme.bodySmall,
+        style: style,
         textAlign: TextAlign.center,
       ),
     );

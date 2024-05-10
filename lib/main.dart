@@ -1,6 +1,5 @@
 import 'package:contactly/features/view/home/home_view.dart';
 import 'package:flutter/material.dart';
-
 import 'features/resources/index.dart';
 
 void main() {
@@ -14,9 +13,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
+      title: 'Contactly',
       theme: getAppTheme(),
-      home: const HomeView(),
+      home: HomeView(),
     );
   }
 }
