@@ -14,4 +14,9 @@ class AppStrings {
   static const String newContactText = 'New Contact';
   static const String doneText = 'Done';
   static const String addPhotoTitle = 'Add Photo';
+
+  /// Add Photo Bottom Sheet
+  static const String iconCamera = 'Camera';
+  static const String iconGallery = 'Gallery';
+  static const String textCancel = 'Cancel';
 }

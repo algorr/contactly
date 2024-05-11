@@ -1,5 +1,7 @@
 import 'package:contactly/features/view/home/home_view.dart';
+import 'package:contactly/features/viewmodel/contact/cubit/contact_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'features/resources/index.dart';
 
 void main() {
@@ -12,11 +14,18 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Contactly',
-      theme: getAppTheme(),
-      home: HomeView(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => ContactCubit(),
+        ),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Contactly',
+        theme: getAppTheme(),
+        home: HomeView(),
+      ),
     );
   }
 }

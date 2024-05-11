@@ -5,11 +5,11 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Size size;
   final VoidCallback onPressed;
 
-  BaseAppBar({
-    Key? key,
+  const BaseAppBar({
+    super.key,
     required this.size,
     required this.onPressed,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

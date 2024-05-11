@@ -1,8 +1,10 @@
 import 'package:contactly/core/widgets/custom_text.dart';
 import 'package:contactly/features/resources/index.dart';
 import 'package:contactly/features/view/home/widgets/add_contact_form_field_column.dart';
+import 'package:contactly/features/viewmodel/contact/cubit/contact_cubit.dart';
 import 'package:flutter/material.dart';
 import 'add_contact_bottom_sheet_buttons_row.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// The `AddContactMainContainer` class is a StatelessWidget in Dart that represents a container for
 /// adding contacts with specific styling and child widgets.
@@ -32,7 +34,11 @@ class AddContactMainContainer extends StatelessWidget {
             padding: EdgeInsets.all(AppPadding.p10),
             child: AddContactBottomSheetButtonsRow(),
           ),
-          Image.asset(AssetsManager.bigBlankImage),
+          InkWell(
+            onTap: () =>
+                context.read<ContactCubit>().homeAddContactPhoto(context, size),
+            child: Image.asset(AssetsManager.bigBlankImage),
+          ),
           SizedBox(
             height: size.height * 0.02,
           ),

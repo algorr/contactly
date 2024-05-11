@@ -24,42 +24,44 @@ class HomeView extends StatelessWidget with AddNewContactMixin {
         onPressed: () {},
       ),
       body: SafeArea(
-        child: Column(
-          children: [
-            SizedBox(
-              height: size.height * 0.05,
-              width: size.width,
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: size.height * .02),
-                child: PhysicalModel(
-                  borderRadius: BorderRadius.circular(AppSize.s15),
-                  elevation: AppSize.s5,
-                  shadowColor: ColorManager.grey,
-                  color: ColorManager.white,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(
+                height: size.height * 0.05,
+                width: size.width,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: size.height * .02),
+                  child: PhysicalModel(
+                    borderRadius: BorderRadius.circular(AppSize.s15),
+                    elevation: AppSize.s5,
+                    shadowColor: ColorManager.grey,
+                    color: ColorManager.white,
 
-                  /// This part of the code is creating a `CustomTextFormField` widget with a hint text
-                  /// and a prefix icon.
-                  child: CustomTextFormField(
-                    hintText: AppStrings.searchBarHintText,
-                    prefixIcon: Icon(
-                      IconManager.homeSearchIcon,
-                      color: ColorManager.grey,
+                    /// This part of the code is creating a `CustomTextFormField` widget with a hint text
+                    /// and a prefix icon.
+                    child: CustomTextFormField(
+                      hintText: AppStrings.searchBarHintText,
+                      prefixIcon: Icon(
+                        IconManager.homeSearchIcon,
+                        color: ColorManager.grey,
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: size.height * .3,
-            ),
+              SizedBox(
+                height: size.height * .3,
+              ),
 
-            /// The `HomeNoContactColumn` widget is being used in the `HomeView` to display a column of
-            /// UI elements related to the scenario where there are no contacts available.
-            HomeNoContactColumn(
-              size: size,
-              picker: _picker,
-            ),
-          ],
+              /// The `HomeNoContactColumn` widget is being used in the `HomeView` to display a column of
+              /// UI elements related to the scenario where there are no contacts available.
+              HomeNoContactColumn(
+                size: size,
+                picker: _picker,
+              ),
+            ],
+          ),
         ),
       ),
     );
