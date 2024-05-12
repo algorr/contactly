@@ -3,13 +3,18 @@ import '../../../resources/index.dart';
 
 class AddContactFormField extends StatelessWidget {
   const AddContactFormField(
-      {super.key, required this.hintText, this.onChanged});
+      {super.key,
+      required this.hintText,
+      this.onChanged,
+      required this.controller});
   final String hintText;
   final Function(String)? onChanged;
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: controller,
       onChanged: onChanged,
       cursorColor: ColorManager.black,
       cursorHeight: AppSize.s20,

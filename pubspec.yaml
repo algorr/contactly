@@ -20,10 +20,29 @@ dependencies:
   cupertino_icons: ^1.0.6
   google_fonts: ^6.2.1
   image_picker: ^1.1.1
+
+  # state management
   bloc: ^8.1.4
   flutter_bloc: ^8.1.5
   equatable: ^2.0.5
 
+  # cache 
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+ 
+
+  # api call
+  json_serializable: ^6.8.0
+  json_annotation: ^4.9.0
+  dio: ^5.4.3+1
+  retrofit: ^4.1.0
+  logger: ^1.4.0
+
+  # app configuration
+  envied: ^0.5.4+1
+  http: ^1.2.1
+  http_parser: ^4.0.2
+  get_it: ^7.7.0
 
 
 dev_dependencies:
@@ -32,6 +51,11 @@ dev_dependencies:
 
 
   flutter_lints: ^3.0.0
+
+  build_runner: ^2.4.9
+  hive_generator: ^2.0.1 
+  envied_generator: ^0.5.3
+  retrofit_generator: ^8.1.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -48,6 +72,7 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    - assets/env/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -9,6 +9,8 @@ sealed class ContactState extends Equatable {
 
 final class ContactInitial extends ContactState {}
 
+final class PhotoAddedFailure extends ContactState {}
+
 final class PhotoAddedSuccess extends ContactState {
   final String photoUrl;
 

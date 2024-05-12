@@ -1,6 +1,5 @@
 import 'package:contactly/features/resources/index.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
 import '../widgets/add_photo_tab_view.dart';
 

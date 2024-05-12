@@ -1,5 +1,7 @@
 import 'package:contactly/features/view/home/widgets/clickable_row.dart';
+import 'package:contactly/features/viewmodel/contact/cubit/contact_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../resources/index.dart';
 
 class AddPhotoSheetColumn extends StatelessWidget {
@@ -32,8 +34,9 @@ class AddPhotoSheetColumn extends StatelessWidget {
             right: size.width * .03,
           ),
           child: ClickableRow(
-            onTap: () {
-              // context.read<ScanCubit>().scanImageWithCamera(context);
+            onTap: () async {
+              Navigator.pop(context);
+              await context.read<ContactCubit>().pickImageWithCamera(context);
             },
             style: Theme.of(context).textTheme.bodyLarge!,
             icon: Image.asset('assets/icons/ic_camera.png'),
@@ -47,9 +50,9 @@ class AddPhotoSheetColumn extends StatelessWidget {
               left: size.width * .03,
               right: size.width * .03),
           child: ClickableRow(
-            onTap: () {
-              //context.read<ScanCubit>().scanImageWithCropperGallery(context);
+            onTap: () async {
               Navigator.pop(context);
+              await context.read<ContactCubit>().pickImageWithGallery(context);
             },
             style: Theme.of(context).textTheme.bodyLarge!,
             icon: Image.asset('assets/icons/ic_gallery.png'),
@@ -64,10 +67,7 @@ class AddPhotoSheetColumn extends StatelessWidget {
               right: size.width * .03),
           child: ClickableRow(
             onTap: () {
-              /*   context
-                  .read<ScanCubit>()
-                  .ocrBottomSheet(context, size)
-                  .then((value) => Navigator.pop(context)); */
+              Navigator.pop(context);
             },
             title: 'Cancel',
             size: size,

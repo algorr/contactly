@@ -1,6 +1,8 @@
 import 'package:contactly/features/resources/index.dart';
 import 'package:contactly/features/view/home/widgets/add_contact_form_field.dart';
+import 'package:contactly/features/viewmodel/service/cubit/service_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AddContactFormFieldColumn extends StatelessWidget {
   const AddContactFormFieldColumn({
@@ -19,8 +21,11 @@ class AddContactFormFieldColumn extends StatelessWidget {
           child: SizedBox(
             height: size.height * .05,
             child: AddContactFormField(
+              controller: context.read<ServiceCubit>().nameController,
               hintText: AppStrings.firstNameHintText,
-              onChanged: (value) {},
+              onChanged: (value) {
+                print('Name : $value');
+              },
             ),
           ),
         ),
@@ -30,7 +35,10 @@ class AddContactFormFieldColumn extends StatelessWidget {
             height: size.height * .05,
             child: AddContactFormField(
               hintText: AppStrings.lastNameHintText,
-              onChanged: (value) {},
+              onChanged: (value) {
+                print('lastname : $value');
+              },
+              controller: context.read<ServiceCubit>().lastNameController,
             ),
           ),
         ),
@@ -40,7 +48,10 @@ class AddContactFormFieldColumn extends StatelessWidget {
             height: size.height * .05,
             child: AddContactFormField(
               hintText: AppStrings.phoneHintText,
-              onChanged: (value) {},
+              onChanged: (value) {
+                print('phone :$value');
+              },
+              controller: context.read<ServiceCubit>().phoneController,
             ),
           ),
         ),

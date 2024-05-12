@@ -1,4 +1,6 @@
+import 'package:contactly/features/viewmodel/service/cubit/service_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/widgets/custom_text_button.dart';
 import '../../../resources/index.dart';
@@ -16,7 +18,9 @@ class AddContactBottomSheetButtonsRow extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         CustomTextButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);
+          },
           text: AppStrings.cancelText,
           style: Theme.of(context).textTheme.labelMedium!,
         ),
@@ -26,7 +30,11 @@ class AddContactBottomSheetButtonsRow extends StatelessWidget {
           style: Theme.of(context).textTheme.headlineMedium!,
         ),
         CustomTextButton(
-          onPressed: () {},
+          onPressed: () async {
+            await context.read<ServiceCubit>().saveContact();
+
+            Navigator.pop(context);
+          },
           text: AppStrings.doneText,
           style: Theme.of(context)
               .textTheme
