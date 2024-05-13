@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:contactly/core/widgets/base_app_bar.dart';
 import 'package:contactly/core/widgets/custom_text_form_field.dart';
 import 'package:contactly/features/resources/index.dart';
@@ -70,6 +68,14 @@ class HomeView extends StatelessWidget
                           child: ListView.builder(
                               itemCount: state.contactList?.length,
                               itemBuilder: (context, index) {
+                                print(
+                                    'Gelen Image Url : ${state.contactList![index].profileImageUrl}');
+                                print(
+                                    'Gelen Name : ${state.contactList![index].firstName}');
+                                print(
+                                    'Gelen lastname : ${state.contactList![index].lastName}');
+
+                                // /data/user/0/com.appoint.co.contactly/cache/scaled_text.png
                                 return InkWell(
                                   onTap: () async {
                                     await context
@@ -88,15 +94,18 @@ class HomeView extends StatelessWidget
                                           color: ColorManager.white),
                                       child: ListTile(
                                         leading: CircleAvatar(
-                                          backgroundImage: FileImage(File(state
-                                                  .contactList?[index]
-                                                  .profileImageUrl ??
-                                              '')),
+                                          backgroundImage: /* FileImage(
+                                            File(state.contactList?[index]
+                                                    .profileImageUrl ??
+                                                ''),
+                                          ) */
+                                              NetworkImage(state
+                                                  .contactList![index]
+                                                  .profileImageUrl!),
                                         ),
                                         title: ContactListItemText(
-                                          text: state.contactList?[index]
-                                                  .firstName ??
-                                              '',
+                                          text:
+                                              '${state.contactList?[index].firstName} ${state.contactList?[index].lastName}',
                                           style: Theme.of(context)
                                               .textTheme
                                               .titleMedium!,

@@ -15,7 +15,8 @@ class ContactCubit extends Cubit<ContactState> with AddPhotoMixin {
 
   Future<String?> pickImageWithCamera(BuildContext context) async {
     try {
-      imagePath = await imagePicker.pickImage(source: ImageSource.camera);
+      imagePath = await imagePicker.pickImage(
+          source: ImageSource.camera, imageQuality: 50);
 
       if (imagePath != null) {
         emit(PhotoAddedSuccess(imagePath!.path));
@@ -31,7 +32,8 @@ class ContactCubit extends Cubit<ContactState> with AddPhotoMixin {
 
   Future<String?> pickImageWithGallery(BuildContext context) async {
     try {
-      imagePath = await imagePicker.pickImage(source: ImageSource.gallery);
+      imagePath = await imagePicker.pickImage(
+          source: ImageSource.gallery, imageQuality: 50);
 
       if (imagePath != null) {
         emit(PhotoAddedSuccess(imagePath!.path));

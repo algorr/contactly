@@ -1,7 +1,8 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:contactly/domain/service/api/service_manager.dart';
-import 'package:contactly/features/model/data_model.dart';
-import 'package:contactly/features/model/user_model.dart';
+import 'package:contactly/features/model/image_response.dart';
+import 'package:contactly/features/model/response_model.dart';
 import 'package:contactly/product/init/config/env_prod.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
@@ -11,6 +12,8 @@ final class NexApiService extends ServiceManager {
   Future<void> saveContact(String firstName, String lastName,
       String phoneNumber, String profileImageUrl) async {
     try {
+      final image = await uploadContactImage(File(profileImageUrl));
+
       final response = await http.post(
         Uri.parse(ProdEnv().baseUrl),
         headers: {
@@ -21,7 +24,7 @@ final class NexApiService extends ServiceManager {
           'firstName': firstName,
           'lastName': lastName,
           'phoneNumber': phoneNumber,
-          'profileImageUrl': profileImageUrl,
+          'profileImageUrl': image,
         }),
       );
 
@@ -38,34 +41,43 @@ final class NexApiService extends ServiceManager {
   }
 
   @override
-  Future<void> uploadContactImage(String profileImageUrl) async {
+  Future<String?> uploadContactImage(File imageFile) async {
     try {
-      final uri = Uri.parse('${ProdEnv().baseUrl}/UploadImage');
+      var request = http.MultipartRequest(
+        'POST',
+        Uri.parse('http://146.59.52.68:11235/api/User/UploadImage'),
+      );
 
-      final mimeType =
-          MediaType.parse('image/${profileImageUrl.split('.').last}');
-
-      var request = http.MultipartRequest('POST', uri)
-        ..headers['accept'] = 'text/plain'
-        ..files.add(
-          await http.MultipartFile.fromPath(
-            'image',
-            profileImageUrl,
-            contentType: mimeType,
-          ),
-        );
+      List<int> imageBytes = await imageFile.readAsBytes();
+      request.files.add(
+        http.MultipartFile.fromBytes(
+          'image',
+          imageBytes,
+          filename: 'image.png',
+          contentType: MediaType('image', 'png'),
+        ),
+      );
 
       var streamedResponse = await request.send();
       var response = await http.Response.fromStream(streamedResponse);
+      String? imageUrl = '';
 
       if (response.statusCode == 200) {
-        print('Image uploaded successfully!');
+        //print('Image uploaded successfully. Response: ${response.body}');
+        ImageResponse responseModel =
+            ImageResponse.fromJson(jsonDecode(response.body));
+        imageUrl = responseModel.data!.imageUrl;
+
+        return imageUrl;
       } else {
-        print('Failed to upload image: ${response.body}');
+        print('Failed to upload image. Status code: ${response.statusCode}');
+        print('Response: ${response.body}');
       }
+      return imageUrl;
     } catch (e) {
-      print('Exception occurred while uploading image: $e');
+      print('An error occurred: $e');
     }
+    return null;
   }
 
   @override

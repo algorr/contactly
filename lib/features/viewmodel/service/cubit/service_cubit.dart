@@ -1,6 +1,7 @@
+import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:contactly/domain/service/api/next_api_service.dart';
-import 'package:contactly/features/model/user_model.dart';
+import 'package:contactly/features/model/response_model.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
@@ -14,12 +15,12 @@ class ServiceCubit extends Cubit<ServiceState> {
   final TextEditingController lastNameController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   String imagePath = '';
+  List<String>? imageUrl = [];
 
   Future<List<User>?> fetchAllContacts() async {
     final contactList = await _service.fetchContacts();
 
     emit(FetchContactsSuccess(contactList: contactList));
-
     return null;
   }
 
@@ -30,7 +31,7 @@ class ServiceCubit extends Cubit<ServiceState> {
           lastNameController.text.trim(),
           phoneController.text.trim(),
           imagePath);
-      await _service.uploadContactImage(imagePath);
+
       emit(AddedContactSuccess());
       clearControllers();
       final contactList = await fetchAllContacts();
