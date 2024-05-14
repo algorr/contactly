@@ -25,6 +25,7 @@ class CustomTextFormField extends StatelessWidget {
       cursorColor: ColorManager.black,
       cursorHeight: AppSize.s20,
       decoration: InputDecoration(
+        contentPadding: const EdgeInsets.symmetric(vertical: 25),
         border: InputBorder.none,
         prefixIcon: Icon(
           IconManager.homeSearchIcon,
@@ -32,7 +33,11 @@ class CustomTextFormField extends StatelessWidget {
         ),
         hintText: AppStrings.searchBarHintText,
         hintStyle: Theme.of(context).textTheme.headlineSmall,
-        focusedBorder: const OutlineInputBorder(borderSide: BorderSide.none),
+        focusedBorder: const OutlineInputBorder(
+          borderSide: BorderSide.none,
+        ),
+        enabledBorder: const OutlineInputBorder(borderSide: BorderSide.none),
+        disabledBorder: const OutlineInputBorder(borderSide: BorderSide.none),
       ),
       onChanged: onChanged,
     );

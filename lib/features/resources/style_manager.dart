@@ -12,7 +12,7 @@ TextStyle _getTextStyle(
 
 // regular style
 TextStyle getRegularTextStyle(
-    {double fontSize = FontSize.s12, required Color color}) {
+    {double fontSize = FontSize.s16, required Color color}) {
   return _getTextStyle(
       fontSize, FontConsts.fontFamily, FontWeightManager.regular, color);
 }

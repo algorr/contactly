@@ -1,3 +1,4 @@
+import 'package:contactly/core/widgets/custom_text.dart';
 import 'package:contactly/features/resources/index.dart';
 import 'package:flutter/material.dart';
 
@@ -14,15 +15,10 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      leadingWidth: size.width * .3,
-
-      /// Contacts Logo Image
-      leading: Padding(
-        padding: const EdgeInsets.only(left: AppPadding.p10),
-        child: Image.asset(
-          AssetsManager.imgContacts,
-        ),
-      ),
+      title: CustomText(
+          text: AppStrings.appBarText,
+          style: Theme.of(context).textTheme.bodyLarge!),
+      centerTitle: false,
       actions: [
         /// Add New Contact Button
         IconButton(

@@ -24,4 +24,18 @@ final class DeletedUserSuccess extends ServiceState {}
 
 final class LoadingState extends ServiceState {}
 
-final class AddedContactSuccess extends ServiceState {}
+final class AddedContactSuccess extends ServiceState {
+  final User? contact;
+
+  const AddedContactSuccess({required this.contact});
+
+  @override
+  List<Object> get props => [];
+}
+
+final class UpdatedContactSuccess extends ServiceState {
+  const UpdatedContactSuccess();
+
+  @override
+  List<Object> get props => [];
+}

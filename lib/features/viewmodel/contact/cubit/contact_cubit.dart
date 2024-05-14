@@ -12,6 +12,12 @@ class ContactCubit extends Cubit<ContactState> with AddPhotoMixin {
 
   final ImagePicker imagePicker = ImagePicker();
   XFile? imagePath;
+  bool isEditPressed = false;
+
+  void changeEditPressed() {
+    isEditPressed = !isEditPressed;
+    emit(ChangedEditPressed(isEditPressed));
+  }
 
   Future<String?> pickImageWithCamera(BuildContext context) async {
     try {
@@ -37,8 +43,11 @@ class ContactCubit extends Cubit<ContactState> with AddPhotoMixin {
 
       if (imagePath != null) {
         emit(PhotoAddedSuccess(imagePath!.path));
-        context.read<ServiceCubit>().imagePath = imagePath!.path;
-        print('PHOTO : ${context.read<ServiceCubit>().imagePath}');
+
+        if (context.mounted) {
+          context.read<ServiceCubit>().imagePath = imagePath!.path;
+          print('PHOTO : ${context.read<ServiceCubit>().imagePath}');
+        }
         return imagePath?.path;
       }
       emit(PhotoAddedFailure());

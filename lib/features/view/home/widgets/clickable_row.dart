@@ -5,7 +5,7 @@ class ClickableRow extends StatelessWidget {
   const ClickableRow(
       {super.key,
       required this.onTap,
-      required this.icon,
+      this.icon,
       required this.title,
       required this.size,
       this.imageIcon,

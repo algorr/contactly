@@ -1,16 +1,21 @@
+import 'package:contactly/core/widgets/custom_text.dart';
+import 'package:contactly/features/model/response_model.dart';
 import 'package:contactly/features/resources/index.dart';
-import 'package:contactly/features/view/home/widgets/add_contact_form_field.dart';
+import 'package:contactly/features/view/home/widgets/index.dart';
 import 'package:contactly/features/viewmodel/service/cubit/service_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../mixin/index.dart';
 
-class AddContactFormFieldColumn extends StatelessWidget {
-  const AddContactFormFieldColumn({
+class ShowContactFormColumn extends StatelessWidget with DeleteContactMixin {
+  const ShowContactFormColumn({
     super.key,
     required this.size,
+    required this.user,
   });
 
   final Size size;
+  final User user;
 
   @override
   Widget build(BuildContext context) {
@@ -20,9 +25,9 @@ class AddContactFormFieldColumn extends StatelessWidget {
           padding: const EdgeInsets.all(AppSize.s16),
           child: SizedBox(
             height: size.height * .05,
-            child: AddContactFormField(
+            child: ShowContactFormField(
               controller: context.read<ServiceCubit>().nameController,
-              hintText: AppStrings.firstNameHintText,
+              label: user.firstName ?? '',
               onChanged: (value) {
                 print('Name : $value');
               },
@@ -33,8 +38,8 @@ class AddContactFormFieldColumn extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: AppSize.s16),
           child: SizedBox(
             height: size.height * .05,
-            child: AddContactFormField(
-              hintText: AppStrings.lastNameHintText,
+            child: ShowContactFormField(
+              label: user.lastName ?? '',
               onChanged: (value) {
                 print('lastname : $value');
               },
@@ -46,8 +51,8 @@ class AddContactFormFieldColumn extends StatelessWidget {
           padding: const EdgeInsets.all(AppSize.s16),
           child: SizedBox(
             height: size.height * .05,
-            child: AddContactFormField(
-              hintText: AppStrings.phoneHintText,
+            child: ShowContactFormField(
+              label: user.phoneNumber ?? '',
               onChanged: (value) {
                 print('phone :$value');
               },
@@ -55,6 +60,23 @@ class AddContactFormFieldColumn extends StatelessWidget {
             ),
           ),
         ),
+        Padding(
+            padding: const EdgeInsets.all(AppMargin.m16),
+            child: Row(
+              children: [
+                InkWell(
+                  onTap: () async {
+                    //await context.read<ServiceCubit>().deleteUser(user.id!);
+                    deleteContactBottomSheet(context, size, user);
+                  },
+                  child: CustomText(
+                      text: AppStrings.deleteContactText,
+                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                          color: ColorManager.red,
+                          fontWeight: FontWeight.bold)),
+                ),
+              ],
+            )),
       ],
     );
   }

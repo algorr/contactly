@@ -1,11 +1,13 @@
-import 'package:contactly/features/resources/index.dart';
+import 'package:contactly/features/model/response_model.dart';
+import 'package:contactly/features/view/home/widgets/add_photo/add_photo_tab_view.dart';
+import 'package:contactly/features/view/home/widgets/delete_contact/delete_sheet_column.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import '../widgets/add_photo/add_photo_tab_view.dart';
 
-mixin AddPhotoMixin {
-  Future<dynamic> homeAddPhotoBottomSheet(
-      BuildContext context, Size size, ImagePicker imagePicker) {
+import '../../../resources/index.dart';
+
+mixin DeleteContactMixin {
+  Future<dynamic> deleteContactBottomSheet(
+      BuildContext context, Size size, User user) {
     return showModalBottomSheet(
       backgroundColor: ColorManager.white,
       useSafeArea: true,
@@ -25,8 +27,9 @@ mixin AddPhotoMixin {
           width: size.width,
           height: size.height * .3,
           duration: const Duration(seconds: 1),
-          child: BottomSheetTabView(
+          child: DeleteSheetColumn(
             size: size,
+            user: user,
           ),
         );
       },

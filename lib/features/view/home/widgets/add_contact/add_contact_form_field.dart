@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../resources/index.dart';
+import '../../../../resources/index.dart';
 
 class AddContactFormField extends StatelessWidget {
   const AddContactFormField(
@@ -19,6 +19,8 @@ class AddContactFormField extends StatelessWidget {
       cursorColor: ColorManager.black,
       cursorHeight: AppSize.s20,
       decoration: InputDecoration(
+        filled: true,
+        fillColor: ColorManager.primary,
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
         hintText: hintText,
         hintStyle: Theme.of(context)

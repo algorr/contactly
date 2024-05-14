@@ -1,6 +1,5 @@
 import 'package:contactly/core/widgets/custom_text_button.dart';
 import 'package:contactly/features/resources/index.dart';
-import 'package:contactly/features/viewmodel/contact/cubit/contact_cubit.dart';
 import 'package:contactly/features/viewmodel/service/cubit/service_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -47,8 +46,7 @@ class HomeNoContactColumn extends StatelessWidget with AddNewContactMixin {
 
             /// Create New Contact Text Button
             CustomTextButton(
-              onPressed: () => addContactBottomSheet(
-                  context, size, context.read<ContactCubit>().imagePicker),
+              onPressed: () => addContactBottomSheet(context, size),
               text: AppStrings.createContactButtonText,
               style: Theme.of(context).textTheme.bodySmall!,
             ),

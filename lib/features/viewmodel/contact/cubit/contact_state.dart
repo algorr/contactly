@@ -19,3 +19,14 @@ final class PhotoAddedSuccess extends ContactState {
   @override
   List<Object> get props => [photoUrl];
 }
+
+final class ChangedEditPressed extends ContactState {
+  bool isEditPressed;
+
+  ChangedEditPressed(this.isEditPressed);
+
+  @override
+  List<Object> get props => [isEditPressed];
+
+  get editPressed => isEditPressed;
+}

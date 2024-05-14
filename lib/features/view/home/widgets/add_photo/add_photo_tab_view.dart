@@ -1,4 +1,4 @@
-import 'package:contactly/features/view/home/widgets/add_photo_sheet_column.dart';
+import 'package:contactly/features/view/home/widgets/add_photo/add_photo_sheet_column.dart';
 import 'package:flutter/material.dart';
 
 class BottomSheetTabView extends StatefulWidget {

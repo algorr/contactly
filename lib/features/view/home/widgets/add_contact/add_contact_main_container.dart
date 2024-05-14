@@ -1,18 +1,16 @@
 import 'dart:io';
-
 import 'package:contactly/core/widgets/custom_text.dart';
 import 'package:contactly/features/resources/index.dart';
-import 'package:contactly/features/view/home/widgets/add_contact_form_field_column.dart';
+import 'package:contactly/features/view/home/widgets/index.dart';
 import 'package:contactly/features/viewmodel/contact/cubit/contact_cubit.dart';
 import 'package:contactly/features/viewmodel/service/cubit/service_cubit.dart';
 import 'package:flutter/material.dart';
-import '../mixin/add_photo_mixin.dart';
-import 'add_contact_bottom_sheet_buttons_row.dart';
+import '../../../../../core/mixins/index.dart';
+import '../../mixin/add_photo_mixin.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-/// The `AddContactMainContainer` class is a StatelessWidget in Dart that represents a container for
-/// adding contacts with specific styling and child widgets.
-class AddContactMainContainer extends StatelessWidget with AddPhotoMixin {
+class AddContactMainContainer extends StatelessWidget
+    with AddPhotoMixin, AppSnackBar {
   const AddContactMainContainer({
     super.key,
     required this.size,
@@ -26,7 +24,7 @@ class AddContactMainContainer extends StatelessWidget with AddPhotoMixin {
       builder: (context, state) {
         return AnimatedContainer(
           decoration: BoxDecoration(
-            color: ColorManager.primary,
+            color: ColorManager.white,
             borderRadius: BorderRadius.circular(AppSize.s18),
             border: Border.all(
                 style: BorderStyle.none, color: ColorManager.primary),
@@ -35,11 +33,24 @@ class AddContactMainContainer extends StatelessWidget with AddPhotoMixin {
           height: size.height,
           duration: const Duration(seconds: 1),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
-              /// Add Contact Bottom Sheet Top of Screen's Buttons Row
-              const Padding(
-                padding: EdgeInsets.all(AppPadding.p10),
-                child: AddContactBottomSheetButtonsRow(),
+              Padding(
+                padding: const EdgeInsets.all(AppPadding.p10),
+
+                /// Add Contact Bottom Sheet Top of Screen's Buttons Row
+                child: AddContactTopButtonRow(
+                  rightButtonText: AppStrings.doneText,
+                  rightButtonPressed: () async {
+                    print('Kayıta basıldı');
+
+                    await context
+                        .read<ServiceCubit>()
+                        .saveContact(context, size);
+                  },
+                  rightButtonColor: ColorManager.grey,
+                  newContactTitle: AppStrings.newContactText,
+                ),
               ),
               InkWell(
                 onTap: () => homeAddPhotoBottomSheet(
@@ -50,8 +61,6 @@ class AddContactMainContainer extends StatelessWidget with AddPhotoMixin {
                           context.read<ServiceCubit>().imagePath =
                               state.photoUrl;
 
-                          print(
-                              'Pho : ${context.read<ServiceCubit>().imagePath}');
                           return CircleAvatar(
                             radius: size.height * 0.1,
                             backgroundImage: FileImage(File(state.photoUrl)),
@@ -67,7 +76,7 @@ class AddContactMainContainer extends StatelessWidget with AddPhotoMixin {
                 text: AppStrings.addPhotoTitle,
                 style: Theme.of(context).textTheme.headlineMedium!,
               ),
-              AddContactFormFieldColumn(
+              ContactFormColumn(
                 size: size,
               ),
               SizedBox(

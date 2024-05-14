@@ -1,8 +1,9 @@
 import 'package:contactly/features/view/home/widgets/clickable_row.dart';
 import 'package:contactly/features/viewmodel/contact/cubit/contact_cubit.dart';
+import 'package:contactly/features/viewmodel/service/cubit/service_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../resources/index.dart';
+import '../../../../resources/index.dart';
 
 class AddPhotoSheetColumn extends StatelessWidget {
   const AddPhotoSheetColumn({
@@ -19,17 +20,8 @@ class AddPhotoSheetColumn extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: AppPadding.p10),
-          child: Divider(
-            thickness: 5,
-            height: 10,
-            indent: size.width * .4,
-            endIndent: size.width * .4,
-          ),
-        ),
-        Padding(
           padding: EdgeInsets.only(
-            top: size.height * .01,
+            top: size.height * .03,
             left: size.width * .03,
             right: size.width * .03,
           ),
@@ -37,6 +29,7 @@ class AddPhotoSheetColumn extends StatelessWidget {
             onTap: () async {
               Navigator.pop(context);
               await context.read<ContactCubit>().pickImageWithCamera(context);
+              Navigator.pop(context);
             },
             style: Theme.of(context).textTheme.bodyLarge!,
             icon: Image.asset('assets/icons/ic_camera.png'),
@@ -51,8 +44,11 @@ class AddPhotoSheetColumn extends StatelessWidget {
               right: size.width * .03),
           child: ClickableRow(
             onTap: () async {
+              (await context
+                  .read<ContactCubit>()
+                  .pickImageWithGallery(context));
+              print('MYPHOTO : ${context.read<ServiceCubit>().imagePath}}');
               Navigator.pop(context);
-              await context.read<ContactCubit>().pickImageWithGallery(context);
             },
             style: Theme.of(context).textTheme.bodyLarge!,
             icon: Image.asset('assets/icons/ic_gallery.png'),
