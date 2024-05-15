@@ -1,14 +1,13 @@
 import 'dart:io';
+import 'package:contactly/features/model/user.dart';
 import 'package:flutter/material.dart';
-
-import '../../../features/model/response_model.dart';
 
 abstract class ServiceManager {
   Future<List<User>?> fetchContacts();
-  Future<void> saveContact(String firstName, String lastName,
+  Future<String?> saveContact(String firstName, String lastName,
       String phoneNumber, String profileImageUrl);
   Future<String?> uploadContactImage(File imageFile);
-  Future<void> deleteUser(String userId, BuildContext context);
+  Future<void> deleteUser(String userId, BuildContext context, Size size);
   Future<void> updateUser(
       BuildContext context,
       String firstName,

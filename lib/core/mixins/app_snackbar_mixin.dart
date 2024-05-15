@@ -12,9 +12,12 @@ mixin AppSnackBar {
         ),
         content: Row(
           children: [
-            Image.asset('assets/icons/ic_tick.png'),
+            Image.asset(
+              'assets/icons/ic_tick.png',
+              color: ColorManager.green,
+            ),
             SizedBox(
-              width: size.width * 0.02,
+              width: size.width * 0.04,
             ),
             CustomText(
                 text: message,

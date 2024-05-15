@@ -5,12 +5,10 @@ import 'package:contactly/features/view/home/widgets/index.dart';
 import 'package:contactly/features/viewmodel/contact/cubit/contact_cubit.dart';
 import 'package:contactly/features/viewmodel/service/cubit/service_cubit.dart';
 import 'package:flutter/material.dart';
-import '../../../../../core/mixins/index.dart';
 import '../../mixin/add_photo_mixin.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class AddContactMainContainer extends StatelessWidget
-    with AddPhotoMixin, AppSnackBar {
+class AddContactMainContainer extends StatelessWidget with AddPhotoMixin {
   const AddContactMainContainer({
     super.key,
     required this.size,

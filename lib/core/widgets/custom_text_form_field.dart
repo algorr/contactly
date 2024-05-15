@@ -1,4 +1,6 @@
+import 'package:contactly/features/viewmodel/service/cubit/service_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../features/resources/index.dart';
 
 /// The CustomTextFormField class is a custom text form field widget in Dart that allows for
@@ -22,8 +24,9 @@ class CustomTextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: context.read<ServiceCubit>().searchController,
       cursorColor: ColorManager.black,
-      cursorHeight: AppSize.s20,
+      //cursorHeight: AppSize.s20,
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.symmetric(vertical: 25),
         border: InputBorder.none,

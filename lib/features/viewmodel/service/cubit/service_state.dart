@@ -18,6 +18,15 @@ final class FetchContactsSuccess extends ServiceState {
   List<Object> get props => [];
 }
 
+final class FilteredState extends ServiceState {
+  final List<User>? filteredUsers;
+
+  const FilteredState({required this.filteredUsers});
+
+  @override
+  List<Object> get props => [];
+}
+
 final class FetchContactsFailure extends ServiceState {}
 
 final class DeletedUserSuccess extends ServiceState {}

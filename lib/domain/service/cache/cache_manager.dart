@@ -1,8 +1,15 @@
-import 'package:contactly/features/model/contact_model.dart';
+import 'package:contactly/features/model/user.dart';
 
 abstract class CacheManager {
   Future<void> init();
-  void addContact(String name, String lastName, String phone, String photoUrl);
-  Future<void> removeContact(int index);
-  Future<List<ContactModel>> fetchAllFiles();
+  void addContact(String firstName, String lastName, String phoneNumber,
+      String profileImageUrl);
+  Future<void> deleteContact();
+  Future<List<User>?> fetchAllContacts();
+  Future<void> updateContact(
+    String firstName,
+    String lastName,
+    String phoneNumber,
+    String profileImageUrl,
+  );
 }

@@ -1,4 +1,5 @@
 import 'package:contactly/features/model/response_model.dart';
+import 'package:contactly/features/model/user.dart';
 import 'package:contactly/features/view/home/widgets/add_photo/add_photo_tab_view.dart';
 import 'package:contactly/features/view/home/widgets/delete_contact/delete_sheet_column.dart';
 import 'package:flutter/material.dart';

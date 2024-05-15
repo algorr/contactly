@@ -1,5 +1,5 @@
 import 'package:contactly/core/widgets/custom_text.dart';
-import 'package:contactly/features/model/response_model.dart';
+import 'package:contactly/features/model/user.dart';
 import 'package:contactly/features/view/home/widgets/clickable_row.dart';
 import 'package:contactly/features/viewmodel/service/cubit/service_cubit.dart';
 import 'package:flutter/material.dart';

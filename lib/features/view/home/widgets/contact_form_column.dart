@@ -35,9 +35,7 @@ class ContactFormColumn extends StatelessWidget {
             height: size.height * .05,
             child: AddContactFormField(
               hintText: AppStrings.lastNameHintText,
-              onChanged: (value) {
-                print('lastname : $value');
-              },
+              onChanged: (value) {},
               controller: context.read<ServiceCubit>().lastNameController,
             ),
           ),

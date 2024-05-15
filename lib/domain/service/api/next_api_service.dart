@@ -1,16 +1,19 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:contactly/core/mixins/index.dart';
 import 'package:contactly/domain/service/api/service_manager.dart';
 import 'package:contactly/features/model/image_response.dart';
 import 'package:contactly/features/model/response_model.dart';
+import 'package:contactly/features/model/user.dart';
+import 'package:contactly/features/resources/index.dart';
 import 'package:contactly/product/init/config/env_prod.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 
-final class NexApiService extends ServiceManager {
+final class NexApiService extends ServiceManager with AppSnackBar {
   @override
-  Future<void> saveContact(String firstName, String lastName,
+  Future<String?> saveContact(String firstName, String lastName,
       String phoneNumber, String profileImageUrl) async {
     try {
       final image = await uploadContactImage(File(profileImageUrl));
@@ -32,12 +35,14 @@ final class NexApiService extends ServiceManager {
 
       if (response.statusCode == 200) {
         print('Contact posted successfully!');
+        return image;
       } else {
         print('Failed to post contact: ${response.body}');
       }
     } catch (e) {
       print('Exception occurred: $e');
     }
+    return null;
   }
 
   @override
@@ -108,7 +113,8 @@ final class NexApiService extends ServiceManager {
   }
 
   @override
-  Future<void> deleteUser(String userId, BuildContext context) async {
+  Future<void> deleteUser(
+      String userId, BuildContext context, Size size) async {
     try {
       final response = await http.delete(
         Uri.parse('${ProdEnv().deleteUrl}/$userId'),
@@ -120,18 +126,6 @@ final class NexApiService extends ServiceManager {
 
       if (response.statusCode == 200) {
         print('User deleted successfully!');
-        if (context.mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-                content: Row(
-              children: [
-                Icon(Icons.check),
-                SizedBox(width: 8),
-                Text('Contact updated successfully!'),
-              ],
-            )),
-          );
-        }
       } else {
         print('Request failed with status: ${response.statusCode}');
         throw Exception('Failed to delete user');
@@ -169,18 +163,7 @@ final class NexApiService extends ServiceManager {
 
       if (response.statusCode == 200) {
         print('Contact updated successfully!');
-        if (context.mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-                content: Row(
-              children: [
-                Icon(Icons.check),
-                SizedBox(width: 8),
-                Text('Contact updated successfully!'),
-              ],
-            )),
-          );
-        }
+        if (context.mounted) {}
       } else {
         print('Failed to updated contact: ${response.body}');
       }

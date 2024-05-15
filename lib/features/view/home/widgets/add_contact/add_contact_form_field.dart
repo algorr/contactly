@@ -17,7 +17,7 @@ class AddContactFormField extends StatelessWidget {
       controller: controller,
       onChanged: onChanged,
       cursorColor: ColorManager.black,
-      cursorHeight: AppSize.s20,
+      //cursorHeight: AppSize.s20,
       decoration: InputDecoration(
         filled: true,
         fillColor: ColorManager.primary,

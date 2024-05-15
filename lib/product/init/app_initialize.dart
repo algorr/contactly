@@ -9,7 +9,8 @@ final class AppInitialize {
   Future<void> init() async {
     WidgetsFlutterBinding.ensureInitialized();
     HttpOverrides.global = MyHttpOverrides();
-    //await NexApiService().delete('66435e27720f4dd266a3b600');
+    // await NexApiService().delete('66435e27720f4dd266a3b600');
+
     await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     AppEnvironment.general();
   }

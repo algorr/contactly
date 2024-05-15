@@ -8,16 +8,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'widgets/contact_list_item_text.dart';
 
-class HomeView extends StatelessWidget
-    with AddNewContactMixin, ContactListTextMixin, ShowContactMixin {
+class HomeView extends StatefulWidget {
   HomeView({super.key});
 
   @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView>
+    with AddNewContactMixin, ContactListTextMixin, ShowContactMixin {
+  @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
     return BlocBuilder<ServiceCubit, ServiceState>(
       builder: (context, state) {
         print('Homeview build anında state : $state');
+        print(
+            'Build anında filtered : ${context.read<ServiceCubit>().filteredUsers.length}');
 
         if (state is FetchContactsSuccess) {
           return Scaffold(
@@ -37,7 +45,7 @@ class HomeView extends StatelessWidget
                 child: Column(
                   children: [
                     SizedBox(
-                      height: size.height * 0.05,
+                      height: size.height * 0.06,
                       width: size.width,
                       child: Padding(
                         padding:
@@ -55,6 +63,13 @@ class HomeView extends StatelessWidget
                               IconManager.homeSearchIcon,
                               color: ColorManager.grey,
                             ),
+                            onChanged: (value) {
+                              setState(() {
+                                context
+                                    .read<ServiceCubit>()
+                                    .filterUsers(value, state.contactList!);
+                              });
+                            },
                           ),
                         ),
                       ),
@@ -63,52 +78,55 @@ class HomeView extends StatelessWidget
                       height: size.height * .01,
                     ),
                     SizedBox(
-                      height: size.height * .7,
+                      height: size.height * .8,
                       child: ListView.builder(
-                          itemCount: state.contactList?.length,
-                          itemBuilder: (context, index) {
-                            return InkWell(
-                              onTap: () async {
-                                await showContactBottomSheet(
-                                    context, size, state.contactList![index]);
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: AppMargin.m20,
-                                    vertical: AppMargin.m10),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(15),
-                                      color: ColorManager.white),
-                                  child: ListTile(
-                                    leading: CircleAvatar(
-                                      backgroundImage: NetworkImage(state
-                                              .contactList?[index]
-                                              .profileImageUrl ??
-                                          ''),
-                                    ),
-                                    title: ContactListItemText(
-                                      text:
-                                          '${state.contactList?[index].firstName} ${state.contactList?[index].lastName}',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleMedium!,
-                                    ),
-                                    subtitle: Text(
-                                        state.contactList?[index].phoneNumber ??
-                                            ''),
+                        itemCount:
+                            context.read<ServiceCubit>().filteredUsers.length,
+                        itemBuilder: (context, index) {
+                          print(
+                              'listview builder filtered : ${context.read<ServiceCubit>().filteredUsers?.length}');
+                          final user =
+                              context.read<ServiceCubit>().filteredUsers[index];
+                          return InkWell(
+                            onTap: () async {
+                              await showContactBottomSheet(
+                                  context, size, state.contactList![index]);
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: AppMargin.m20,
+                                  vertical: AppMargin.m10),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15),
+                                    color: ColorManager.white),
+                                child: ListTile(
+                                  leading: CircleAvatar(
+                                    backgroundImage: NetworkImage(
+                                        user?.profileImageUrl ?? ''),
                                   ),
+                                  title: ContactListItemText(
+                                    text:
+                                        '${user?.firstName} ${user?.lastName}',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleMedium!,
+                                  ),
+                                  subtitle: Text(user?.phoneNumber ?? ''),
                                 ),
                               ),
-                            );
-                          }),
+                            ),
+                          );
+                        },
+                      ),
                     )
                   ],
                 ),
               ),
             ),
           );
-        } else if (state is ServiceInitial) {
+        } else if (state is FetchContactsSuccess && state.contactList == null ||
+            state is ServiceInitial) {
           return Scaffold(
             backgroundColor: ColorManager.primary,
             appBar: BaseAppBar(
@@ -118,35 +136,37 @@ class HomeView extends StatelessWidget
                 size,
               ),
             ),
-            body: Column(
-              children: [
-                SizedBox(
-                  height: size.height * 0.05,
-                  width: size.width,
-                  child: Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: size.height * .02),
-                    child: PhysicalModel(
-                      borderRadius: BorderRadius.circular(AppSize.s15),
-                      shadowColor: ColorManager.grey,
-                      color: ColorManager.white,
-                      child: CustomTextFormField(
-                        hintText: AppStrings.searchBarHintText,
-                        prefixIcon: Icon(
-                          IconManager.homeSearchIcon,
-                          color: ColorManager.grey,
+            body: SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: size.height * 0.05,
+                    width: size.width,
+                    child: Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: size.height * .02),
+                      child: PhysicalModel(
+                        borderRadius: BorderRadius.circular(AppSize.s15),
+                        shadowColor: ColorManager.grey,
+                        color: ColorManager.white,
+                        child: CustomTextFormField(
+                          hintText: AppStrings.searchBarHintText,
+                          prefixIcon: Icon(
+                            IconManager.homeSearchIcon,
+                            color: ColorManager.grey,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: size.height * .3),
-                  child: HomeNoContactColumn(
-                    size: size,
+                  Padding(
+                    padding: EdgeInsets.only(top: size.height * .3),
+                    child: HomeNoContactColumn(
+                      size: size,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           );
         } else if (state is LoadingState) {

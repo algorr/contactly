@@ -7,6 +7,7 @@ class AppStrings {
       "Contacts you've added will appear here.";
   static const String createContactButtonText = 'Create New Contact';
   static const String addedUser = 'User added!';
+  static const String updateUser = 'Changes have been applied!';
 
   /// Create Contact Const Strings
   static const String firstNameHintText = 'First name';
