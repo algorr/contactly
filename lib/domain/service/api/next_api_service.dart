@@ -79,7 +79,7 @@ final class NexApiService extends ServiceManager with AppSnackBar {
     try {
       var request = http.MultipartRequest(
         'POST',
-        Uri.parse('http://146.59.52.68:11235/api/User/UploadImage'),
+        Uri.parse('${ProdEnv().baseUrl}/UploadImage'),
       );
 
       List<int> imageBytes = await imageFile.readAsBytes();
