@@ -28,14 +28,7 @@ class User {
   @HiveField(5)
   String? profileImageUrl;
 
-  factory User.fromJson(Map<String, dynamic> json) {
-    return User(
-      id: json["id"],
-      createdAt: DateTime.tryParse(json["createdAt"] ?? ""),
-      firstName: json["firstName"],
-      lastName: json["lastName"],
-      phoneNumber: json["phoneNumber"],
-      profileImageUrl: json["profileImageUrl"],
-    );
-  }
+  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+
+  Map<String, dynamic> toJson() => _$UserToJson(this);
 }

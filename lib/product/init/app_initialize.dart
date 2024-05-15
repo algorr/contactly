@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:contactly/domain/service/api/next_api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'config/app_environment.dart';
@@ -9,7 +8,7 @@ final class AppInitialize {
   Future<void> init() async {
     WidgetsFlutterBinding.ensureInitialized();
     HttpOverrides.global = MyHttpOverrides();
-    // await NexApiService().delete('66435e27720f4dd266a3b600');
+    //await NexApiService().delete('66447140720f4dd266a3b72e');
 
     await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     AppEnvironment.general();

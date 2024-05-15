@@ -1,3 +1,4 @@
+import 'package:contactly/core/mixins/index.dart';
 import 'package:contactly/core/widgets/custom_text.dart';
 import 'package:contactly/features/model/user.dart';
 import 'package:contactly/features/view/home/widgets/clickable_row.dart';
@@ -6,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../resources/index.dart';
 
-class DeleteSheetColumn extends StatelessWidget {
+class DeleteSheetColumn extends StatelessWidget with AppSnackBar {
   const DeleteSheetColumn({
     super.key,
     required this.size,

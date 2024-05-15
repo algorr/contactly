@@ -18,6 +18,15 @@ final class FetchContactsSuccess extends ServiceState {
   List<Object> get props => [];
 }
 
+final class FetchLocalContactsSuccess extends ServiceState {
+  final List<User>? contactList;
+
+  const FetchLocalContactsSuccess({required this.contactList});
+
+  @override
+  List<Object> get props => [];
+}
+
 final class FilteredState extends ServiceState {
   final List<User>? filteredUsers;
 
@@ -32,6 +41,14 @@ final class FetchContactsFailure extends ServiceState {}
 final class DeletedUserSuccess extends ServiceState {}
 
 final class LoadingState extends ServiceState {}
+
+final class ServiceErrorState extends ServiceState {
+  final String message;
+
+  const ServiceErrorState({required this.message});
+  @override
+  List<Object> get props => [message];
+}
 
 final class AddedContactSuccess extends ServiceState {
   final User? contact;

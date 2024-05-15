@@ -28,9 +28,7 @@ class ShowContactFormColumn extends StatelessWidget with DeleteContactMixin {
             child: ShowContactFormField(
               controller: context.read<ServiceCubit>().nameController,
               label: user.firstName ?? '',
-              onChanged: (value) {
-                print('Name : $value');
-              },
+              onChanged: (value) {},
             ),
           ),
         ),
@@ -40,9 +38,7 @@ class ShowContactFormColumn extends StatelessWidget with DeleteContactMixin {
             height: size.height * .05,
             child: ShowContactFormField(
               label: user.lastName ?? '',
-              onChanged: (value) {
-                print('lastname : $value');
-              },
+              onChanged: (value) {},
               controller: context.read<ServiceCubit>().lastNameController,
             ),
           ),
@@ -53,9 +49,7 @@ class ShowContactFormColumn extends StatelessWidget with DeleteContactMixin {
             height: size.height * .05,
             child: ShowContactFormField(
               label: user.phoneNumber ?? '',
-              onChanged: (value) {
-                print('phone :$value');
-              },
+              onChanged: (value) {},
               controller: context.read<ServiceCubit>().phoneController,
             ),
           ),
